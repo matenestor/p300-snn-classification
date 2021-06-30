@@ -1,18 +1,26 @@
 ### Python requirements
 
 numpy==1.19
+
 pandas==1.2.5
+
 sicpy==1.7.0
+
 scikit-learn==0.24.2
+
 matplotlib==3.4.1
+
 notebook==6.3.0
+
 nengo==3.1.0
+
 nengo-dl==3.4.1
+
 tensorflow==2.5.0
 
 ### Usage
 
-Open jupyter notebook server with input `jupyter notebook` into terminal from a directory with `p300-snn-classification.ipynb` file. Or run the file `p300-snn-classification.ipynb` directly from a terminal.
+Open jupyter notebook server with input `jupyter notebook` into terminal from a directory with `p300-snn-classification.ipynb` file. Or run the file `p300-snn-classification.py` directly from a terminal.
 
 #### Parameters
 
