@@ -1,6 +1,9 @@
 ### Description
 
-TODO
+Four kinds of neural networks to classify target and non-target numbers from recorder P300 brain waves. Networks are both artificial and spiking (3rd generation of neural networks). Target number is a chosen number from range 1 to 9 by examined participant. Non-target is every other number from the range. The numbers were shown to a participant, who then focused on the number, which created event-related potential, that the networks are classifying.
+
+Dataset is available at:
+https://doi.org/10.7910/DVN/G9RRLN
 
 ### Usage
 
