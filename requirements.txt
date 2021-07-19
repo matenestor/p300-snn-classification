@@ -7,3 +7,4 @@ notebook==6.3.0
 nengo==3.1.0
 nengo-dl==3.4.1
 tensorflow==2.5.0
+openpyxl==3.0.7
