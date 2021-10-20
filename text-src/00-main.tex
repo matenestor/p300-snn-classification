@@ -1,0 +1,117 @@
+\documentclass[english,BP]{thesiskiv}
+
+\author{Jakub Matějka}
+\declarationmale
+
+\title{Traditional and spiking neural networks}
+
+%
+% Texty abstraktů (anglicky, česky)
+%
+\abstracttexten{Spiking Neural Networks (SNN) are a promising successor to the widely used Artificial Neural Networks (ANN). SNNs aim to be as bio-plausible as possible. However, such behavior is time and energy consuming on the Von-Neumann architecture. Therefore, an entirely new architecture called neuromorphic is being developed and tools to simulate it on standard processors as well. This thesis focuses on comparing the performance of both types of networks in classifying event-related potentials dataset. Two models from each type of network are used and the data are preprocessed in two different ways. The state-of-the-art activation functions, spiking neurons and libraries for simulation are presented. The achieved classification results and the neural models are discussed.}
+
+\abstracttextcz{Impulzní neuronové sítě jsou slibným nástupcem široce používaných tradičních neuronových sítí. Impulzní sítě se drží biologické předloze co nejvěrohodněji. Avšak, takové chování je časově i energeticky náročné na Von-Neumannově architektuře. Proto je vyvíjena zcela nová architektura zvaná neuromorfní a také nástroje pro její simulování na standardních procesorech. Tato práce se soustředí na porovnání výkonu obou typů sítí při klasifikování elektroencefalografických dat. Jsou použity dva modely od každého typu sítí a data jsou předzpracovány dvěma odlišnými způsoby. Jsou prezentovány nejlepší dostupné aktivační funkce, impulzní neurony a knihovny pro simulaci. Dosažené výsledky klasifikací a neuronové modely jsou rozebrány.}
+
+
+% Na titulní stranu a do textu prohlášení se automaticky vkládá
+% aktuální rok, resp. datum. Můžete je změnit:
+%\titlepageyear{2016}
+%\declarationdate{1. března 2016}
+
+% Ve zvláštních případech je možné ovlivnit i ostatní texty:
+%
+%\university{Západočeská univerzita v Plzni}
+%\faculty{Fakulta aplikovaných věd}
+%\department{Katedra informatiky a výpočetní techniky}
+%\subject{Bakalářská práce}
+%\titlepagetown{Plzeň}
+%\declarationtown{Plzni}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% DODATEČNÉ BALÍČKY PRO SAZBU
+% Jejich užívání či neužívání záleží na libovůli autora
+% práce
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Zařadit literaturu do obsahu
+\usepackage[nottoc,notlot,notlof]{tocbibind}
+
+% Umožňuje vkládání obrázků
+\usepackage[pdftex]{graphicx}
+
+% Odkazy v PDF jsou aktivní; navíc se automaticky vkládá
+% balíček 'url', který umožňuje např. dělení slov
+% uvnitř URL
+\usepackage{url}
+\usepackage{breakurl}
+\usepackage[pdftex,breaklinks]{hyperref}
+\hypersetup{colorlinks=true,
+  unicode=true,
+  linkcolor=black,
+  citecolor=black,
+  urlcolor=black,
+  bookmarksopen=true}
+
+% Při používání citačního stylu csplainnatkiv
+% (odvozen z csplainnat, http://repo.or.cz/w/csplainnat.git)
+% lze snadno modifikovat vzhled citací v textu
+\usepackage[numbers,sort&compress]{natbib}
+
+\usepackage{amsmath}
+
+% my packages
+
+\usepackage{pdfpages}
+\usepackage{listings}
+
+\graphicspath{{img/}}
+
+\def\UrlBreaks{\do\/\do-}
+%\interfootnotelinepenalty=10000
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% VLASTNÍ TEXT PRÁCE
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+%
+\maketitle
+\tableofcontents
+
+% Introduction
+\input{00-introduction}
+
+% Overview ANN and SNN
+\input{01-ch_overview}
+
+% Training of SNNs
+\input{02-ch_training}
+
+% Simulation toolkits
+\input{03-ch_simtools}
+
+% Neuromorphic hardware
+\input{04-ch_nmhw}
+
+% Experiment
+\input{05-ch_experiment}
+
+% Discussion
+\input{06-ch_discussion}
+
+% Conclusion
+\input{10-conclusion}
+
+%
+% PRO ANGLICKOU SAZBU JE NUTNÉ ZMĚNIT
+% CITAČNÍ STYL!
+%
+\bibliographystyle{abbrv}
+{\raggedright\small
+\bibliography{literature}
+}
+
+\end{document}

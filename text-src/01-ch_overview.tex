@@ -1,0 +1,164 @@
+\chapter{Overview of artificial and spiking neural networks}
+\label{ch:overview}
+
+Neural network (NN) is in its core a complex mathematical function, which models and simulates behavior of brain. Brain contains mainly biological neurons and synapses. In the algorithm of NNs both neurons (Section~\ref{sec:ann_neurons}) and their connections called synapses are mathematical functions.
+
+Each NN has input neurons and output neurons. Those neurons are connected with synapses. The data given to input neurons are processed by the NN and result is received by output neurons. The data is transformed through the NN accordingly to its structure -- type of neurons and synapses, and strength of synapses. Spiking Neural Networks (SNN) use different way to transfer signal than Artificial Neural Networks (ANN). Approaches with differences are described later in (Section~\ref{sec:artificial_nn} and Section~\ref{sec:spiking_nn}).
+
+Nowadays, it is typical for a NN to have more layers of neurons, meaning there is so called hidden layer, or layers of neurons between input and output layer. These are called Deep Neural Networks (DNN). DNNs proved to be more powerful than single-layered NNs, due to possibility to train more layers.
+
+Next part will cover basic properties and differences between artificial and spiking NNs. Main focus is given to differences between these two types of networks.
+
+%
+% ARTIFICIAL NNs
+%
+
+\section{Artificial neural networks (ANN)}
+\label{sec:artificial_nn}
+
+ANNs compute with numerical values. Layers are represented by vectors, matrices or even tensors. It depends on how many dimension does the input layer has. The values are real numbers. With numbers we can apply backpropagation and use an activation functions (Section~\ref{sec:activation_functions}), in order to train an ANNs.
+
+As data travel through the NN, each neuron in ANN uses an activation function in order to decide, whether it will be activated or not. If the neuron is not activated it does not fire further to next neurons.
+
+ANNs are nowadays capable of creating and modifying images, detecting elements in them, or even creating videos from images. Another example of usage are agents (self-controlling models in an unknown environment). We make ANNs drive cars or play games like Chess and Go. First neural network that had beaten human champion in game of Go is named AlphaGo. Researches from other areas took algorithm of AlphaGo and created AlphaZero to play Chess and AlphaStar to play StarCraft.
+
+%
+% SPIKING NNs
+%
+
+\section{Spiking neural networks (SNN)}
+\label{sec:spiking_nn}
+
+On contrary to ANNs, SNNs do not use numbers, but spike trains, which are events increasing potential of neuron's membrane. When the membrane is excited enough, the neuron fires signal forward to all connected neurons. The signals are called spikes and they are pieces of information traveling through network. Membrane potential is then reset after firing. We are able to observe single neuron spikes and tell during which activities neurons are most active.
+
+Due to the fact that SNNs are brain inspired networks, they are built using differential equations. The equations represents membrane and determine frequency of spikes. \cite{snns-nextgen} Calculating differential equations is difficult task for processors with traditional Von Neumann architecture -- it leads to overheating, long computing and high power usage. New architecture for neuromophic computing (computing using SNNs) could provide a solution. For this problem, neuromorphic chips are being built especially for SNNs. With such hardware, SNNs will overcome problems ANNs have on the state-of-the-art hardware, because of better compatibility and smaller energy consumption. Neuromorphic hardware uses both computing and memory unit represented by one piece called memristor. (Section~\ref{sec:memristor})
+
+It is known, that ANNs are hard to interpret and they tend to behave like black boxes. They are usually fully connected (every neuron in one layer is connected to each neuron in following layer) and use vector based computation. Thus have a fixed structure. Brain is built to behave dynamically, in order to adapt quickly. With dynamic networks we would be able to understand their behaviour better. For goal of better interpretability are SNNs better. \cite{neucube}
+
+Several studies show possibility of decoding brain signals from electroencephalography (EEG) during body movements. SNN is able to map encoded EEG signals to 3D reservoir of NeuCube framework and evolve in order to predict brain spikes better. Improved discovery of brain centers with this approach of brain signal decoding and mapping it to NeuCube is promised. \cite{neucube}
+
+This could be helpful for more precise usage of prosthetics after limb loss. Current prosthetics might fulfill their purpose, but they will not simulate human limb perfectly . For new brain inspired brain-computer interface it should be easy task thanks to SNNs' ability to precise spike timing with spike time-dependent plasticity (Section~\ref{sec:unsupervised_snn}) rules. \cite{stdp-biological}
+
+Training SNNs with small dataset gives good results. Human brain has enormous learning capacity and has ability to perform complex task with small energy output, so brain inspired SNNs have the potential to perform better than ANNs. SNNs are called third generation of NNs and thanks to their brain-like structure both training and final use should be faster. Output spikes in the beginning tend to be not precise, but when SNNs are given time to process spikes, they can improve classification abilities. \cite{stdp-biological}
+
+%
+% ARTIFICIAL NEURONS
+%
+
+\section{Artificial neurons}
+\label{sec:ann_neurons}
+
+Neuron is one of the main parts of neural network. In neurons it is decided if signal will continue or not. Each neuron has some amount of input and output synapses, where signals to transfer are coming and leaving.
+
+The simplest type of neuron is perceptron, which was also the very first one made. Single layered perceptron can be used only for linear regression. Later researchers used perceptrons in layers and developed multi layered perceptrons (MLP). With combination of more complex neurons and better activation functions, MLPs are used as good classifiers capable of finding multiple classes, not just two. For example simple classification of pictures with animals.
+
+We can describe perceptron neuron mentioned above with this function:
+
+$$
+	y = f(\sum_i{w_i \cdot x_i}) + b
+$$
+
+Where $y$ is the final result, which will leave from neuron, $f$ is chosen activation function (Section~\ref{sec:activation_functions}), $w$ is weight of incoming signal and $x$ is input value, which it carries. At last, $b$ is bias, which can help to activate the neuron. The neuron then fires forward or is regressed and stops the signal from going onward.
+
+%
+% SPIKING NEURONS
+%
+
+\section{Spiking neurons}
+\label{sec:snn_neurons}
+
+Various models of spiking neurons is an analogy to activation functions (Section~\ref{sec:activation_functions}) in ANNs. There are new types being developed and every model has its pros and cons. Spiking neurons are created with capacitors and resistors, that simulate bio-chemical reactions of potassium and sodium in brain.
+
+
+\subsection{Leaky integrate-and-fire (LIF)}%
+\label{sub:lif}
+
+LIF is the simplest spiking neuron in terms of bio-plausibility. However, its computational cost is the smallest. Thanks to the low cost, it is possible to simulate large networks with thousands of neurons at once. \cite{brainmodels-lif} LIF is very focused on precisely-timed events carrying the information,  because it is capable of a few spiking shapes. \cite{bisnn-for-decoding-muscle-act}
+
+Functionality is only about accumulating energy until the membrane is excited enough and the energy is released -- fired. Nowadays, LIF is the most used spiking neuron model.
+
+
+\subsection{Izhikevich}%
+\label{sub:izhi}
+
+Izhikevich neuron combines simplicity of LIF neuron (Section~\ref{sub:lif}) and bio-plausibility of Hodgkin-Huxley model (Section~\ref{sub:hodhux}). This makes it more energy consuming, than LIF neuron, but still less than Hodgkin-Huxley. It is capable of various spike shapes, so it makes it a good compromise. \cite{brainmodels-izhi}
+
+Functionality is more complex than the one of LIF neuron, but this model is also accumulating energy and then fires. In addition there is decaying variable, which is put to high value, when Izhikevich neuron fires and then the variable slowly decays (looses its value).
+
+
+\subsection{Hodgkin-Huxley}%
+\label{sub:hodhux}
+
+This neuron model is considered the most bio-plausible, which also makes it very computation demanding. \cite{brainmodels-hh} Hodgkin-Huxley neuron has three channels that together represent functionality of real human neuron. Two channels simulate sodium and potassium bio-chemical reactions. Last channel maintains potential of the neuron and cooperates with other channels while they are closed. \cite{hh-bio-form}
+
+Hodgkin-Huxley neuron received Nobel Prize in Psychology or Medicine in year 1963. \cite{hh-nobel}
+
+
+\subsection{Legendre Memory Unit (LMU)}%
+\label{sub:lmu}
+
+Legendre Memory Unit is new type of spiking recurrent neuron. They already proved to have better accuracy, than standard Long short-term memory (LSTM) neurons when classifying Permuted Sequential MNIST dataset. The LMU consists of layers, where each layer contains nonlinear hidden state and linear memory cell. Hidden state is generated after input to the layer. Important part of the LMU is sliding window, which helps with orthogonalization of time vectors from its input signal. \cite{lmu-article}
+
+%
+% ACTIVATION FUNCTIONS
+%
+
+\section{Activation functions}%
+\label{sec:activation_functions}
+
+Activation function in neuron is used to process the signal that came in. Incoming signal is value going over some synapse multiplied by weight of the synapse. Result is combined with previously mentioned bias value. Next part will describe a few basic activation functions for ANNs.
+
+
+\subsection{Sigmoid}%
+\label{sub:sigmoid}
+
+Sigmoid function is used for normalizing input value to range from 0 to 1. They had been used in deep layers of NNs before discovery of a function Rectified Linear Unit (Section~\ref{sub:relu}), a more advanced function described below.
+
+Mathematical notation of Sigmoid function:
+
+$$%
+	f(x) = \frac{1}{1+e^{-x}}%
+$$
+
+
+\subsection{Rectified Linear Unit (ReLU)}%
+\label{sub:relu}
+
+ReLU transforms all negative values to zero and other values leaves untouched. That means it is easy for computation and is able to converge to minimum faster. With ReLU we can train NNs faster with higher accuracy. However, disadvantage of this function is that neurons tend to die often as a consequence of the negative numbers transformation to zero.
+
+Mathematical formula of ReLU function is
+
+$$%
+	f(x) = \begin{cases} 0 & \text{if } x < 0 \\
+						 x & \text{if } x \geq 0.%
+			\end{cases}%
+$$
+
+
+\subsection{Swish/SiLU}%
+\label{sub:swish_silu}
+
+Swish function was introduced after ReLU function. Negative numbers are not changed to zero, but kept as a small negative value. It can perform better than ReLU, but it is computationally more demanding. \cite{swish}
+
+The $\beta$ in the equation is either constant or trainable parameter. First version of Swish function is without the $\beta$. It was added there later, when the second version of paper \cite{swish} was released.
+
+Mathematical notation of Swish function is
+
+$$%
+	f(x) = x \cdot \text{sigmoid}(\beta x).%
+$$
+
+Independently, there was discovered same function, but named Sigmoid-Weighted Linear Unit (SiLU). \cite{silu} An object of this function is in the Tensorflow library (Section~\ref{sub:tensorflow}) created with \texttt{tensorflow.nn.silu}. Although, in Keras \ref{ssub:keras} can be found as \texttt{tensorflow.keras.activations.swish}.
+
+
+\subsection{Softmax}%
+\label{sub:softmax}
+
+Softmax function is usually applied in last layer of NN. It is probabilistic function, that can distribute values in a way that their sum is equal to one. Thus we can determine probability of various classes, which the NN have to classify.
+
+Mathematical notation of Softmax function is
+
+$$%
+	f(x) = \frac{e^{x_i}}{\sum\limits_{j=1}^{n} e^{x_j}} \quad \text{for } i=1,2,\dots n.%
+$$
+

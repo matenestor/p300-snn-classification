@@ -1,0 +1,64 @@
+\chapter{Training of neural networks}%
+\label{cha:training_nns}
+
+Training of ANNs is nowadays very developed and there are many algorithms for various tasks. Advantage is computing with real numbers and lesser complexity of mathematical equations. Von Neumann architecture is quite well suited for this purpose, although it still suffers from slow byte exchange between CPU and RAM.
+
+On the other hand, training of SNNs is still a challenge due to their non-differential nature and other reasons like non-native hardware, inability to use well known and mainstream training algorithms or even absence of proper programming language for an essence of SNNs and neuromorphic hardware (Section~\ref{cha:neurom_hw}). Not only that efficient training algorithms are missing, but they are hard to design, due to asynchronous calculations. \cite{dl-with-sneurons}
+
+Researchers are coming up with new ways how to improve usability of SNNs. Results so far suggest that SNNs might be stronger in given tasks than ANNs in the future. \cite{dl-in-snns}
+
+For accurate SNN it is important to have precise timing of spikes and firing patterns, if we want them to simulate brain very well. To achieve this we need to pick well designed and programmed synapses, neurons and use complex datasets for benchmarking. It is important, because even small difference or single spike can produce different behaviour. \cite{dl-with-sneurons}
+
+In brain, there are excitatory and inhibitory neurons, which cooperate together, in order to keep brain function properly. SNNs use similar approach, but with synapses, for giving accurate results. Excitatory synapses increase potential of neuron's membrane and inhibitory decreases it. This ability is important part of training, but remains a challenge for current learning methods, because we cannot use back-propagation algorithm. Solution came with spike time-dependent plasticity (STDP), which is set of learning rules. STDP is described in Section~\ref{sec:unsupervised_snn}.
+
+Deep learning in SNNs usually uses only one learning layer and one layer for classification. In the beginning of deep SNN are a few layers for preprocessing. Whereas for ANNs there are many options how to put layers together. Network with dense layers is fully connected and last layer is for classification. Convolutional network take turns of convolutional and max-pooling layers and in the end there are dense layers. Recurrent networks have some layers in cycles.
+
+
+\section{Unsupervised learning of ANNs}%
+\label{sec:unsupervised_ann}
+
+We use unsupervised learning for unlabeled datasets. This is useful for association, clustering and finding patterns or anomalies in data. NNs trained unsupervised way are able to draw images, write stories or compose music. Nevertheless final pieces are not the best and there is still a lot to be improved.
+
+NN has to learn on its own similarly like children are learning. It processes given data and then adjusts its weight and biases, in order to minimize the error -- difference between given input and final result. After training the network should be able to give similar samples like in dataset, even if it is given noise samples.
+
+During this approach it is common to use competitive learning rules like winner-take-all.
+
+
+\section{Supervised learning of ANNs}%
+\label{sec:supervised_ann}
+
+Supervised learning can be used with labeled dataset. We know what every sample is and what it means. Then we can give it to ANN to process and compare its results with desired label. It means that an input vector of data is compared with an output vector. If the result is wrong, then the error is backpropagated to the network with loss function a gradient descent algorithms, that corrects network's weight and biases.
+
+Due to the fact, that we have labeled data, one problem may arise, and it is overfitting. Overfitting happens, when NN is trained too much and thinks it will receive only samples like it had in training dataset. NN will classify new unseen samples as classes it encountered during training, even though the samples belong to different class, but they are very similar.
+
+Supervised learning is good for classification tasks -- we have two or multiple classes and we want the network to identify, which class a sample belongs to. And regression tasks -- we have data and we want to predict how they will develop.
+
+
+\section{Unsupervised learning of SNNs}%
+\label{sec:unsupervised_snn}
+
+Unsupervised learning of SNNs reminds us of real brain function. Main used set of unsupervised learning is spike time-dependent plasticity (STDP). SNNs learns by adjusting weights of pre- and post-synaptic neurons, in order to improve spike times. Meaning, the weight of synapse between neurons is strengthened, when pre-synaptic neuron fires before post-synaptic neuron. The strengthening is called long-term potentiation (LTP). And the weight is weakened, when pre-synaptic neuron fires after post-synaptic one. The weakening is called long-term depression (LTD). This means that neural path are created with high information flow on path from beginning to end of network. With STDP rules, even single neuron is able to recognize and learn repeating patterns of spikes. \cite{dl-with-sneurons}
+
+STDP has potential to be very bio-plausible, because it is inspired by real processes in brain \cite{stdp-biological}. However, with higher bio-plausibility comes high complexity in computations and hardware implementation. STDP is also good for sequential data processing \cite{survey-stdp}, so EEG data decoding application with this learning is in situ.
+
+
+\section{Supervised learning of SNNs}%
+\label{sec:supervised_snn}
+
+Supervised learning of SNNs, on the other hand, is similar to backpropagation used in ANNs, like gradient descent. Here we want to get as close value of output spike to desired one as possible and minimize the error. From this point researches could start developing gradient descents for SNNs. \cite{backprop-snns}
+
+For gradient descent we need real values and not spikes. Best real values found in SNN are those of membrane's potential. A deep SNN is capable to train from spike signal patters and reach state-of-the-art results. \cite{dl-with-sneurons}
+
+
+\section{Transformation ANN to SNN}%
+\label{sec:trans_ann2snn}
+
+Classic way to train a neural network is unsupervised or supervised learning. Nevertheless, there are also experiments with converting a trained ANN to SNN. This SNN development give plausible results in many cases. \cite{dl-in-snns}
+To achieve conversion, ANN is trained with standard algorithms first, and then artificial neurons are changed to spiking neurons. Conversion works for fully connected networks, convolutional networks, deep belief networks and recurrent networks too.
+
+Recurrent neural networks (RNN) are great for one-dimensional and sequential data, so it is great candidate for EEG data processing. The best model of recurrent networks is the long short-term memory (LSTM). Specifically, this set of models is called gated recurrent networks (GRU). The models are called gated, because the consist of cells with gates controlled by trainable weights. It makes sense to start converting RNNs first and test them as spiking RNNs.
+
+Although not every ANN can be easily converted to SNN. Values of spiking neurons are always positive. This is a problem when there is a conversion of neuron with negative activation. As mentioned in Section~\ref{sec:artificial_nn}, artificial neurons use real numbers, including negative ones. Solution could be ReLU activation function (Section~\ref{sub:relu}) with its outputs being either zero or positive values. With such values it will be easy to convert neurons. Another improvement is to create two spiking neurons from an artificial neuron, and let one handle positive values and the other one negative values. \cite{2ann-for-1snn-neuron}
+
+Of course if we wanted to convert network super precisely, it would be at cost of more spiking events and more energy consumption.
+

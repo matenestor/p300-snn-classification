@@ -1,0 +1,9 @@
+\chapter{Discussion}%
+\label{cha:discussion}
+
+It seems that convolutional networks are still prevailing on their place as the state-of-the-art neural networks, since they performed best during this experiment. Some hopes were given to the LSTM network and spiking network with LMU neurons. However, they scored a few points below the convolutional network. If we would like to achieve better results, it could be done probably with use of the neuromorphic hardware like Loihi or just simulating it on a FPGA board. And then designing a complex spiking neural network with many trainable parameters. After all, presented neural models were trained on a CPU Intel~i5-8300H and one run with mentioned cross-validation and batch size parameters could take even an hour.
+
+This thesis tried to find a better way to classify event-related potentials in order to be used with brain-computer interface. Nevertheless, the result is four neuron networks, which perform similarly as in the original paper \cite{varekap300}. Author achieved accuracy of 62-64\% without optimizing. The best models in this thesis perform in range of 63-68\% even with optimization. When the author applied optimization the accuracy was increasing, whereas with models in this thesis it was decreasing. The reason might be too naive preprocessing or badly configured training environment for NNs.
+
+Following research could improve presented approaches to neural models implementation or collect another dataset from adult people, whose brain could behave less chaotic.
+

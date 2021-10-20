@@ -1,0 +1,21 @@
+\chapter{Neuromorphic hardware}%
+\label{cha:neurom_hw}
+
+As mentioned before in Section~\ref{sec:spiking_nn}, neuromorphic hardware (NMHW) is becoming new computing architecture specifically designed for SNNs. Current computer architecture -- Von Neumann architecture, is sufficient for computing, but there is still overhead due to separated computing unit and memory unit. Data needs to be transferred from memory to computing unit over bus. That costs time and energy on this architecture for simulating algorithms as SNNs.
+
+Although spikes are sparse in time, one spike train carries high information amount. Thanks to this we will be able to design low energy consumption hardware. SNNs should be run on NMHW, because of easier information propagation, power efficiency and in-memory computing. All units in Von Neumann architecture work synchronously driven by internal clock. Both NMHW and neurons in SNNs are not synchronized by clock, but actions inside happen in parallel, which leads to great asynchronous computing. NN model using sparse temporal codes should benefit more from NMHW, because energy is taken by synaptic events the most. \cite{dl-with-sneurons}
+
+Real NMHW called TrueNorth, SpiNNaker and BrainScaleS with silicon chips already exists. Their production is costly and time-consuming, so they are not for sale yet. NMHW is not available for general public, however, there are cloud data centers being built, with access to SpiNNaker and BrainScaleS systems. \cite{ebrains}
+
+The EBRAINS offers free and quick access to brain inspired computing devices for researchers. Certain thing is also API opened for Python scripts.
+Intel company also develops neuromorphic chip called Loihi and gives access to limited amount of the chips for researching. Loihi possesses big amount of interconnected neurons, low power consumption, self-learning and on-chip learning. \cite{intel}
+
+Besides cloud computing, NMHW is good candidate for embedded devices like battery-powered robots, mobile phones and internet-of-things devices.
+
+\section{Memristor}%
+\label{sec:memristor}
+
+Memristor is a memory resistive device developed by HP labs, which gained popularity in 21st century. Memristors found use for NMHW, after further exploration, because they allow us to avoid the bottleneck of Von Neumann architecture. Synaptic connections of human brain are imitated by memristor. Synapse models act as memory and occupy the biggest area in chips, so its optimization is essential. Complexity of synapses also grows with bio-plausibility and they require more space when implemented in silicon. Memristors are more energy efficient then regular transistors and they show STDP-like (Section~\ref{sec:unsupervised_snn})  behaviour. \cite{fpga-impl-nn}
+
+NMHW technology with memristors was not very well suited for ANNs, because synaptic weights are stored in SRAM or DRAM (static and dynamic random access memory) and these hardware components are too big to be implemented in high amount. However, after many improvements of memristors, it is now possible to implement ANNs on NMHW better. On the other hand, NMHW with memristors is very well suited for SNNs. It takes lots of computation to simulate SNNs on Von Neumann architecture. SNN is implemented with CMOS and memristors. The former works as neurons and the latter as synapses. They are combined together in a grid and can work both as memory and computational unit, so Von Neumann bottleneck is removed. Applicability of these components is both space and energy efficient. Also, SNNs does not need to calculate everything at once, in contrast to ANNs, which calculate layer by layer. SNNs spread its computation, so those neurons, that does not receive any input, can go to standby mode. In the end the energy consumption is lower. ANNs still remain target to be implemented and experimented with, but SNNs promise great potential in this area. \cite{memristors}
+

@@ -1,0 +1,91 @@
+\chapter{Simulation tools}
+\label{ch:simulation_tools}
+
+This chapter describes tools for designing ANNs and simulating SNNs. Neuromorphic hardware is still not available for wide population, so we are using simulators of such hardware. Included simulators are those highly used and actively developed.
+
+%
+% Traditional neural networks tools
+%
+
+\section{Traditional neural networks tools}%
+\label{sec:traditional_neural_networks_tools}
+
+At first we will look at tools for ANNs. Presented are two most used -- Tensorflow and PyTorch. But there are also other libraries such as Aesara, fork of Theano (Theano is not being developed anymore), or Keras, which is high-level library with API for Tensorflow and Theano as a backend.
+
+
+\subsection{Tensorflow}%
+\label{sub:tensorflow}
+
+Tensorflow is a library for machine learning (ML) developed by Google Brain Team. It is written in C\verb!++! with Python high-level API, with CUDA support, and released under Apache License 2.0. First version of Tensorflow focused on building static graph, which represents ANN, before execution. This approach is good for debugging purposes and the graph analysis, but it does not allow developer to change the graph during runtime. Version two of Tensorflow was inspired by PyTorch (Section~\ref{sub:pytorch}) and started using objects. Like this it is easier to design various layers of ANN and it is possible to change them during runtime.
+
+Tensorflow provides tool Tensorboard, where developers can analyze ANN in depth and see exact results. \cite{tensorflow}
+
+
+\subsubsection{Keras}
+\label{ssub:keras}
+
+Keras is high-level API for ML libraries developed by a Google engineer François Chollet. It requires proper library as a backend and provides easy programmable interface. Developers are able to avoid usage of backend ML library itself, which can be sometimes complicated.
+
+At first, it was developed independently of Tensorflow and provided multiple backends like Theano or CNTK, but from Keras version 2.4 only Tensorflow is supported. Tensorflow served as a main backend since Keras version 1.1 already. Nowadays Keras is included in Tensorflow in submodule \texttt{tensorflow.keras} and should be used from there. Standalone Keras library is receiving only bug fixes. \cite{keras}
+
+
+\subsection{PyTorch}%
+\label{sub:pytorch}
+
+PyTorch is developed by Facebook AI Research lab (FAIR). Like Tensorflow, it is written in C++ with Python API, with CUDA support, but released under BSD-style license. It provides tensor computation with GPU acceleration. \cite{pytorch}
+
+As said before, PyTorch allows developer to create neural models as classes with defined layers as class attributes. That gives us a free hand to design models as we want. PyTorch also works well with Matplotlib, NumPy or SciPy library. PyTorch has implementation focused on performance, due to some Python's limitations. Besides efficient C++ core, it separates control and data flow, meaning that basic program flow, like branches and loops, are executed on CPU, whereas tensor operations are executed on GPU. If given computer has CUDA enabled GPU, of course. Another performance improvements are incremental memory allocation on GPU with CUDA, and object reference counting, that allows PyTorch to smartly deallocate no longer needed tensors. \cite{pytorch-paper}
+
+%
+% Spiking neural networks tools
+%
+
+\section{Spiking neural networks tools}%
+\label{sec:spiking_neural_networks_tools}
+
+ANN toolkits receive a lot of attention from the public, but SNN toolkits are better known among researchers. Tools for SNNs simulations are introduced in this section.
+
+
+\subsection{Nengo}%
+\label{sub:nengo}
+
+Nengo is a framework for designing large scale networks. Version 1 was written in Java, but version 2 is rewritten in Python from scratch for higher speed. Currently it is the fastest running solution for creating networks with hundreds and more neurons. \cite{nengo} It is built on a theoretical framework called the Neural Engineering Framework (NEF), which is designed for large scale approach of network modeling. NEF proposes three principles allowing to model large scale networks. The three principles are Representation, Transformation and Dynamics.
+
+For Representation Nengo provides \textsf{Ensemble} object. It is population of neurons represented by time-varying vector with real numbers allowing us to encode it and decode it.
+
+For Transformation Nengo provides \textsf{Connection} object. It allows us to create synapses among populations of neurons and connect them, so the neurons can communicate among each other.
+
+Dynamics principle is created, when \textsf{Ensemble} object is connected to itself. Like this we can create recurrent parts of our networks.
+
+Nengo also provides another objects like \textsf{Node} for accepting input and processing output from it, \textsf{Probe} for collecting data during a simulation, and \textsf{Network}, which represents whole designed network composed from available objects.
+
+Nengo is available for non-commercial use released under proprietary license.
+
+
+\subsubsection{NengoDL}
+\label{ssub:nengodl}
+
+NengoDL (Nengo Deep Learning) is a branch of Nengo created to make Tensorflow (Subsection~\ref{sub:tensorflow}) components and models compatible with those in Nengo. NengoDL provides \texttt{nengo\_dl.Converter} for easy and almost automatic Tensorflow neural model conversion to Nengo model. However, it is also possible to convert single model components (like layers and activation functions (Section~\ref{sec:activation_functions})) manually with more specific methods in NengoDL. Currently it is the easiest solution to transform ANN model to SNN model.
+
+
+\subsection{Brian2}%
+\label{sub:brian2}
+
+Brian2 is framework written in Python, that aims to be easy to use for mathematical scientists. Models are written in mathematical form; similarity as equations. Brian2 is also able to generate code in background, due to its high-level scripting. Generated code is inserted into working piece of code, thanks to the framework. \cite{brian}
+
+There is a number \textit{2} in the name, because it was rewritten, in order to improve speed. First version of Brian is now legacy code. Brian2 uses vectorized algorithms in core \cite{brian-vectorized}, which makes it faster than NEST simulation tool (Section~\ref{sub:the_network_simulation_tool_nest}) for homogeneous neuron population. For heterogeneous population, their speeds are comparable. \cite{brian}
+
+Writing plugins for this framework is possible. For example Brian2GeNN \cite{brian2genn} for GPU computation support or Brian2CUDA \cite{brian2cuda} for CUDA parallel support. GPU acceleration is able to increase speed by tens to hundreds of time.
+
+Brian2 is released under CeCILL 2.1 license.
+
+
+\subsection{The Network Simulation Tool (NEST)}%
+\label{sub:the_network_simulation_tool_nest}
+
+NEST is built for dynamics, size and structure of neural systems, giving researches ability to shape models to their needs. NEST provides over 50 neuron models and over 10 synapse models, which gives the toolkit lots of flexibility, as well as the fact that multiple neurons and synapses can coexist together. NEST was developed in 1994 and is expanding and improving since then. NEST itself is simulation program with core written in C++ and PyNEST allows us to control it with Python. \cite{nest-site, nest}
+
+NEST is one of many services offered by EBRAINS, which is a digital research infrastructure providing state-of-the-art capabilities for collaborative brain research. \cite{ebrains} EBRAINS is powered by Human Brain Project (HBP) \cite{hbp}. HBP is building research infrastructure across Europe, in order to completely discover and understand complexity of human brain.
+
+NEST is released under GPL-2.0 license.
+
